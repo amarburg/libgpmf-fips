@@ -1,0 +1,6 @@
+[submodule "thirdparty/gpmf-write"]
+	path = thirdparty/gpmf-write
+	url = https://github.com/gopro/gpmf-write.git
+[submodule "thirdparty/gpmf-parser"]
+	path = thirdparty/gpmf-parser
+	url = https://github.com/gopro/gpmf-parser.git
