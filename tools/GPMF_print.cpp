@@ -24,10 +24,9 @@
 #include <string.h>
 #include <stdint.h>
 
-#include "../GPMF_parser.h"
+#include "libg3logger/g3logger.h"
 
-
-#define DBG_MSG printf
+#include "gpmf-parser/GPMF_parser.h"
 
 
 #define VERBOSE_OUTPUT		0
@@ -60,7 +59,7 @@ void printfData(uint32_t type, uint32_t structsize, uint32_t repeat, void *data)
 
 			if (arraysize == 1 || repeat == 1)
 			{
-				DBG_MSG("\"%s\"", t);
+				printf("\"%s\"", t);
 				dots = 0;
 			}
 			else
@@ -68,14 +67,14 @@ void printfData(uint32_t type, uint32_t structsize, uint32_t repeat, void *data)
 				uint32_t i,j,pos=0;
 				for (i = 0; i < repeat; i++)
 				{
-					DBG_MSG("\"");
+					printf("\"");
 					for (j = 0; j < arraysize; j++)
 					{
 						if (t[pos] != '\0' && t[pos] != ' ')
-							DBG_MSG("%c", t[pos]);
+							printf("%c", t[pos]);
 						pos++;
 					}
-					DBG_MSG("\", ");
+					printf("\", ");
 				}
 			}
 		}
@@ -92,10 +91,10 @@ void printfData(uint32_t type, uint32_t structsize, uint32_t repeat, void *data)
 
 				while (arraysize--)
 				{
-					DBG_MSG("%d,", (int8_t)*b);
+					printf("%d,", (int8_t)*b);
 					b++;
 				}
-				if (repeat) DBG_MSG(" ");
+				if (repeat) printf(" ");
 			}
 		}
 		break;
@@ -111,10 +110,10 @@ void printfData(uint32_t type, uint32_t structsize, uint32_t repeat, void *data)
 
 				while (arraysize--)
 				{
-					DBG_MSG("%d,", *b);
+					printf("%d,", *b);
 					b++;
 				}
-				if (repeat) DBG_MSG(" ");
+				if (repeat) printf(" ");
 			}
 		}
 		break;
@@ -133,10 +132,10 @@ void printfData(uint32_t type, uint32_t structsize, uint32_t repeat, void *data)
 				{
 					Swap = BYTESWAP64(*L);
 					d = (double *)&Swap;
-					DBG_MSG("%.3f,", *d);
+					printf("%.3f,", *d);
 					L++;
 				}
-				if (repeat) DBG_MSG(" ");
+				if (repeat) printf(" ");
 			}
 		}
 		break;
@@ -155,10 +154,10 @@ void printfData(uint32_t type, uint32_t structsize, uint32_t repeat, void *data)
 				{
 					Swap = BYTESWAP32(*L);
 					f = (float *)&Swap;
-					DBG_MSG("%.3f,", *f);
+					printf("%.3f,", *f);
 					L++;
 				}
-				if (repeat) DBG_MSG(" ");
+				if (repeat) printf(" ");
 			}
 		}
 	break;
@@ -173,10 +172,10 @@ void printfData(uint32_t type, uint32_t structsize, uint32_t repeat, void *data)
 
 				while (arraysize--)
 				{
-					DBG_MSG("%c%c%c%c,", PRINTF_4CC(*L));
+					printf("%c%c%c%c,", PRINTF_4CC(*L));
 					L++;
 				}
-				if (repeat) DBG_MSG(" ");
+				if (repeat) printf(" ");
 			}
 		}
 		break;
@@ -191,10 +190,10 @@ void printfData(uint32_t type, uint32_t structsize, uint32_t repeat, void *data)
 
 				while (arraysize--)
 				{
-					DBG_MSG("%02X", *B);
+					printf("%02X", *B);
 					B++;
 				}
-				if (repeat) DBG_MSG(" ");
+				if (repeat) printf(" ");
 			}
 		}
 		break;
@@ -210,10 +209,10 @@ void printfData(uint32_t type, uint32_t structsize, uint32_t repeat, void *data)
 
 				while (arraysize--)
 				{
-					DBG_MSG("%d,", (int16_t)BYTESWAP16(*s));
+					printf("%d,", (int16_t)BYTESWAP16(*s));
 					s++;
 				}
-				if (repeat) DBG_MSG(" ");
+				if (repeat) printf(" ");
 			}
 		}
 		break;
@@ -229,10 +228,10 @@ void printfData(uint32_t type, uint32_t structsize, uint32_t repeat, void *data)
 
 				while (arraysize--)
 				{
-					DBG_MSG("%d,", BYTESWAP16(*S));
+					printf("%d,", BYTESWAP16(*S));
 					S++;
 				}
-				if (repeat) DBG_MSG(" ");
+				if (repeat) printf(" ");
 			}
 		}
 		break;
@@ -248,10 +247,10 @@ void printfData(uint32_t type, uint32_t structsize, uint32_t repeat, void *data)
 
 				while (arraysize--)
 				{
-					DBG_MSG("%d,", (int32_t)BYTESWAP32(*l));
+					printf("%d,", (int32_t)BYTESWAP32(*l));
 					l++;
 				}
-				if (repeat) DBG_MSG(" ");
+				if (repeat) printf(" ");
 			}
 		}
 		break;
@@ -266,10 +265,10 @@ void printfData(uint32_t type, uint32_t structsize, uint32_t repeat, void *data)
 
 				while (arraysize--)
 				{
-					DBG_MSG("%d,", BYTESWAP32(*L));
+					printf("%d,", BYTESWAP32(*L));
 					L++;
 				}
-				if(repeat) DBG_MSG(" ");
+				if(repeat) printf(" ");
 			}
 		}
 		break;
@@ -287,10 +286,10 @@ void printfData(uint32_t type, uint32_t structsize, uint32_t repeat, void *data)
 				{
 					double dq = BYTESWAP32(*q);
 					dq /= (double)65536.0;
-					DBG_MSG("%.3f,", dq);
+					printf("%.3f,", dq);
 					q++;
 				}
-				if (repeat) DBG_MSG(" ");
+				if (repeat) printf(" ");
 			}
 		}
 		break;
@@ -309,10 +308,10 @@ void printfData(uint32_t type, uint32_t structsize, uint32_t repeat, void *data)
 					uint64_t Q64 = (uint64_t)BYTESWAP64(*Q);
 					double dq = (double)(Q64 >> (uint64_t)32);
 					dq += (double)(Q64 & (uint64_t)0xffffffff) / (double)0x100000000;
-					DBG_MSG("%.3f,", dq);
+					printf("%.3f,", dq);
 					Q++;
 				}
-				if (repeat) DBG_MSG(" ");
+				if (repeat) printf(" ");
 			}
 		}
 		break;
@@ -334,10 +333,10 @@ void printfData(uint32_t type, uint32_t structsize, uint32_t repeat, void *data)
 #else
 					strncpy(t, U, 16);
 #endif
-					DBG_MSG("\"%s\",", t);
+					printf("\"%s\",", t);
 					U += 16;
 				}
-				if (repeat) DBG_MSG(" ");
+				if (repeat) printf(" ");
 			}
 		}
 		break;
@@ -352,10 +351,10 @@ void printfData(uint32_t type, uint32_t structsize, uint32_t repeat, void *data)
 
 				while (arraysize--)
 				{
-					DBG_MSG("%lld,", BYTESWAP64(*J));
+					printf("%lld,", BYTESWAP64(*J));
 					J++;
 				}
-				if (repeat) DBG_MSG(" ");
+				if (repeat) printf(" ");
 			}
 		}
 		break;
@@ -370,10 +369,10 @@ void printfData(uint32_t type, uint32_t structsize, uint32_t repeat, void *data)
 
 				while (arraysize--)
 				{
-					DBG_MSG("%llu,", BYTESWAP64(*J));
+					printf("%llu,", BYTESWAP64(*J));
 					J++;
 				}
-				if (repeat) DBG_MSG(" ");
+				if (repeat) printf(" ");
 			}
 		}
 		break;
@@ -382,105 +381,114 @@ void printfData(uint32_t type, uint32_t structsize, uint32_t repeat, void *data)
 	}
 
 	if (dots) // more data was not output
-		DBG_MSG("...");
+		printf("...");
 }
 
 
 void PrintGPMF(GPMF_stream *ms)
 {
-	if (ms)
+	if(ms == nullptr ) return;
+
+	uint32_t key = GPMF_Key(ms);
+	uint32_t type = GPMF_Type(ms);
+	uint32_t structsize = GPMF_StructSize(ms);
+	uint32_t repeat = GPMF_Repeat(ms);
+	uint32_t size = GPMF_RawDataSize(ms);
+	uint32_t level = GPMF_NestLevel(ms);
+	void *data = GPMF_RawData(ms);
+
+	if (key != GPMF_KEY_DEVICE) level++;
+
+	const uint32_t maxIndent = 10;
+	char spacer[maxIndent*2 + 1] = "";
+	//spacer[0] = '\0';
+
+	for( auto i = 0; i < std::min(maxIndent,level); ++i ) {
+		strcat(spacer, "  ");
+	}
+	// indent = level;
+	// while (indent > 0 && indent < 10) {
+	// 	printf("  ");
+	// 	indent--;
+	// }
+
+	char keyStr[5];
+	snprintf(keyStr, 4, "%c%c%c%c", (key >> 0) & 0xff, (key >> 8) & 0xff, (key >> 16) & 0xff, (key >> 24) & 0xff);
+
+	if (type == 0) {
+		LOGF(INFO, "%s%s nest size %d ", spacer, keyStr, size);
+	} else if (structsize == 1 || (repeat == 1 && type != '?')) {
+		LOGF(INFO, "%s%s type '%c' size %d (%d samples at %d bytes) ", spacer, keyStr, type == 0 ? '0' : type, size, repeat, structsize );
+	} else {
+		LOGF(INFO, "%s%s type '%c' samplesize %d repeat %d ", spacer, keyStr, type == 0 ? '0' : type, structsize, repeat);
+	}
+
+	if (type && repeat > 0)
 	{
-		uint32_t key = GPMF_Key(ms);
-		uint32_t type = GPMF_Type(ms);
-		uint32_t structsize = GPMF_StructSize(ms);
-		uint32_t repeat = GPMF_Repeat(ms);
-		uint32_t size = GPMF_RawDataSize(ms);
-		uint32_t indent, level = GPMF_NestLevel(ms);
-		void *data = GPMF_RawData(ms);
+		//printf("data: ");
 
-		if (key != GPMF_KEY_DEVICE) level++;
-
-		indent = level;
-		while (indent > 0 && indent < 10)
+		if (type == GPMF_TYPE_COMPLEX)
 		{
-			DBG_MSG("  ");
-			indent--;
-		}
-		if (type == 0)
-			DBG_MSG("%c%c%c%c nest size %d ", (key >> 0) & 0xff, (key >> 8) & 0xff, (key >> 16) & 0xff, (key >> 24) & 0xff, size);
-		else if (structsize == 1 || (repeat == 1 && type != '?'))
-			DBG_MSG("%c%c%c%c type '%c' size %d ", (key >> 0) & 0xff, (key >> 8) & 0xff, (key >> 16) & 0xff, (key >> 24) & 0xff, type == 0 ? '0' : type, size);
-		else
-			DBG_MSG("%c%c%c%c type '%c' samplesize %d repeat %d ", (key >> 0) & 0xff, (key >> 8) & 0xff, (key >> 16) & 0xff, (key >> 24) & 0xff, type == 0 ? '0' : type, structsize, repeat);
-
-		if (type && repeat > 0)
-		{
-			DBG_MSG("data: ");
-
-			if (type == GPMF_TYPE_COMPLEX)
+			GPMF_stream find_stream;
+			GPMF_CopyState(ms, &find_stream);
+			if (GPMF_OK == GPMF_FindPrev(&find_stream, GPMF_KEY_TYPE, GPMF_CURRENT_LEVEL))
 			{
-				GPMF_stream find_stream;
-				GPMF_CopyState(ms, &find_stream);
-				if (GPMF_OK == GPMF_FindPrev(&find_stream, GPMF_KEY_TYPE, GPMF_CURRENT_LEVEL))
+				char *srctype = (char *)GPMF_RawData(&find_stream);
+				uint32_t typelen = GPMF_RawDataSize(&find_stream);
+				int struct_size_of_type;
+
+				struct_size_of_type = GPMF_SizeOfComplexTYPE(srctype, typelen);
+				if (struct_size_of_type != (int32_t)structsize)
 				{
-					char *srctype = GPMF_RawData(&find_stream);
-					uint32_t typelen = GPMF_RawDataSize(&find_stream);
-					int struct_size_of_type;
-
-					struct_size_of_type = GPMF_SizeOfComplexTYPE(srctype, typelen);
-					if (struct_size_of_type != (int32_t)structsize)
-					{
-						DBG_MSG("error: found structure of %d bytes reported as %d bytes", struct_size_of_type, structsize);
-					}
-					else
-					{
-						char typearray[64];
-						uint32_t elements = sizeof(typearray);
-						uint8_t *bdata = (uint8_t *)data;
-						uint32_t i;
-
-						if (GPMF_OK == GPMF_ExpandComplexTYPE(srctype, typelen, typearray, &elements))
-						{
-							uint32_t j;
-#if !VERBOSE_OUTPUT
-							if (repeat > 3) repeat = 3;
-#endif
-							for (j = 0; j < repeat; j++)
-							{
-								if (repeat > 1) {
-									DBG_MSG("\n  ");
-
-									indent = level;
-									while (indent > 0 && indent < 10)
-									{
-										DBG_MSG("  ");
-										indent--;
-									}
-								}
-								for (i = 0; i < elements; i++)
-								{
-									int elementsize = GPMF_SizeofType(typearray[i]);
-									printfData(typearray[i], elementsize, 1, bdata);
-									bdata += elementsize;
-								}
-
-							}
-							if (repeat > 1)
-								DBG_MSG("...");
-						}
-					}
+					printf("error: found structure of %d bytes reported as %d bytes", struct_size_of_type, structsize);
 				}
 				else
 				{
-					DBG_MSG("unknown formatting");
+					char typearray[64];
+					uint32_t elements = sizeof(typearray);
+					uint8_t *bdata = (uint8_t *)data;
+					uint32_t i;
+
+					if (GPMF_OK == GPMF_ExpandComplexTYPE(srctype, typelen, typearray, &elements))
+					{
+						uint32_t j;
+#if !VERBOSE_OUTPUT
+						if (repeat > 3) repeat = 3;
+#endif
+						for (j = 0; j < repeat; j++)
+						{
+							if (repeat > 1) {
+								printf("\n  ");
+
+								// indent = level;
+								// while (indent > 0 && indent < 10)
+								// {
+									printf(spacer);
+								// 	indent--;
+								// }
+							}
+							for (i = 0; i < elements; i++)
+							{
+								auto elementsize = GPMF_SizeofType(static_cast<GPMF_SampleType>(typearray[i]));
+								printfData(typearray[i], elementsize, 1, bdata);
+								bdata += elementsize;
+							}
+
+						}
+						if (repeat > 1)
+							printf("...");
+					}
 				}
 			}
 			else
 			{
-				printfData(type, structsize, repeat, data);
+				//printf("unknown formatting");
 			}
 		}
-
-		DBG_MSG("\n");
+		else
+		{
+			//printfData(type, structsize, repeat, data);
+		}
 	}
+
 }

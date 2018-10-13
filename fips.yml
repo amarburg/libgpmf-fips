@@ -2,15 +2,20 @@ imports:
     fips-googletest:
         git: https://github.com/amarburg/fips-googletest.git
         cond: "FIPS_UNITTESTS"
+    libg3logger:
+        git: https://github.com/amarburg/libg3logger.git
+    fips-CLI11:
+        git: https://github.com/amarburg/fips-CLI11.git
 
 exports:
   header-dirs:
     - include/
     - thirdparty/
   modules:
-    libgmpf: .
+    libgpmf: .
 
 
 
 defines:
   FIPS_UNITTESTS_RUN_AFTER_BUILD: ON
+  FIPS_RTTI: ON

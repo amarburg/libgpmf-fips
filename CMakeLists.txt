@@ -30,20 +30,20 @@ fips_begin_module( gpmf )
 fips_end_module()
 
 
-
-fips_begin_app( parser-demo cmdline )
-  fips_src( thirdparty/gpmf-parser/demo/ )
-  fips_deps( gpmf )
-fips_end_app()
-
-fips_begin_app( writer-demo cmdline )
-  fips_src( thirdparty/gpmf-write/demo/ )
-  fips_deps( gpmf )
-fips_end_app()
-
-
 if( NOT FIPS_IMPORT )
-  #add_subdirectory("tools/")
+
+	fips_begin_app( parser-demo cmdline )
+	  fips_src( thirdparty/gpmf-parser/demo/ )
+	  fips_deps( gpmf )
+	fips_end_app()
+
+	fips_begin_app( writer-demo cmdline )
+	  fips_src( thirdparty/gpmf-write/demo/ )
+	  fips_deps( gpmf )
+	fips_end_app()
+
+	# Tools not quite ready yet...
+  add_subdirectory("tools/")
 	#add_subdirectory("demo/")
 
 	if( FIPS_UNITTESTS )
