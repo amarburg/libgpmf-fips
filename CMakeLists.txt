@@ -27,6 +27,7 @@ fips_end_module()
 
 
 if( NOT FIPS_IMPORT )
+
 	fips_begin_app( parser-demo cmdline )
 	  fips_src( thirdparty/gpmf-parser/demo/ )
 	  fips_deps( gpmf )
@@ -37,7 +38,8 @@ if( NOT FIPS_IMPORT )
 	  fips_deps( gpmf )
 	fips_end_app()
 
-  #add_subdirectory("tools/")
+	# Tools not quite ready yet...
+  add_subdirectory("tools/")
 	#add_subdirectory("demo/")
 
 	if( FIPS_UNITTESTS )
