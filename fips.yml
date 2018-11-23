@@ -8,9 +8,10 @@ exports:
     - include/
     - thirdparty/
   modules:
-    libgmpf: .
+    gpmf: .
 
 
 
 defines:
   FIPS_UNITTESTS_RUN_AFTER_BUILD: ON
+  FIPS_RTTI: ON
