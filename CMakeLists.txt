@@ -16,17 +16,13 @@ set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 fips_begin_module( gpmf )
 
 	#fips_src( lib *.cpp )
-	fips_files( thirdparty/gpmf-write/GPMF_writer.c )
-	fips_files( thirdparty/gpmf-parser/GPMF_parser.c )
-
-  # fips_deps( videoencoder blackmagic oculus )
+	fips_src( thirdparty/gpmf-write/  NO_RECURSE )
+	fips_src( thirdparty/gpmf-parser/ NO_RECURSE )
 
   fips_include_directories(
 		${CMAKE_SOURCE_DIR}/include
 		${CMAKE_SOURCE_DIR}/thirdparty
  	)
-
-	#fips_libs(  ${Boost_LIBRARIES} )
 fips_end_module()
 
 
