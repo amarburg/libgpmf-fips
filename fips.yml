@@ -9,7 +9,6 @@ imports:
 
 exports:
   header-dirs:
-    - include/
     - thirdparty/
   modules:
     gpmf: .
