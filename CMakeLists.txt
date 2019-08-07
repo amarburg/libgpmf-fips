@@ -23,7 +23,6 @@ fips_begin_module( gpmf )
 
 
   fips_include_directories(
-		${CMAKE_SOURCE_DIR}/include
 		${CMAKE_SOURCE_DIR}/thirdparty
  	)
 fips_end_module()
