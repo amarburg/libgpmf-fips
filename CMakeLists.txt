@@ -63,6 +63,7 @@ else()
      
     catkin_package(
         LIBRARIES gpmf_LIB
+        INCLUDE_DIRS thirdparty
 
     )
 
@@ -86,7 +87,7 @@ else()
           RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION})
 
     ## Install headers
-    install(DIRECTORY  include/${PROJECT_NAME}/ thirdparty/
+    install(DIRECTORY thirdparty/
         DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
         FILES_MATCHING PATTERN "*.hpp" PATTERN "*.h"
         PATTERN ".git" EXCLUDE)
