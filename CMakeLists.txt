@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 3.5)
 
-find_package(catkin QUIET)
-if( NOT FIPS_IMPORT )
-    if (NOT catkin_FOUND)
+if( FIPS_CONFIG AND NOT FIPS_IMPORT )
 	cmake_minimum_required(VERSION 3.5)
 
 	get_filename_component(FIPS_ROOT_DIR "../fips" ABSOLUTE)
 	include("${FIPS_ROOT_DIR}/cmake/fips.cmake")
 
-	fips_setup(PROJECT gpmf)
-    endif()
+	fips_setup(PROJECT serdp_common)
+
+else()
+  find_package(catkin QUIET)
 endif()
 
 #list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
@@ -17,7 +17,7 @@ endif()
 ## C++ flags applied to all builds
 set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-if (FIPS_IMPORTANT)
+if (FIPS_CONFIG)
 
 	fips_begin_module( gpmf )
 		fips_src( thirdparty/gpmf-write/)
