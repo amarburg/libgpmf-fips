@@ -41,7 +41,7 @@ set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 if (FIPS_CONFIG)
 
 	fips_begin_module( gpmf )
-		fips_src( thirdparty/gpmf-write/)
+		#fips_src( thirdparty/gpmf-write/)
 		fips_src( thirdparty/gpmf-parser/)
 
 
@@ -59,7 +59,7 @@ if (FIPS_CONFIG)
 		fips_end_app()
 
 		fips_begin_app( writer-demo cmdline )
-		  fips_src( thirdparty/gpmf-write/demo/ )
+		  #fips_src( thirdparty/gpmf-write/demo/ )
 		  fips_deps( gpmf )
 		fips_end_app()
 
