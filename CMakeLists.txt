@@ -1,12 +1,13 @@
+project(gpmf)
 cmake_minimum_required(VERSION 3.5)
 
 
 find_package(Git QUIET)
-if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
+if(GIT_FOUND AND NOT EXISTS "${PROJECT_SOURCE_DIR}/thirdparty/gpmf-writer/.git")
 # Update submodules as needed
     option(GIT_SUBMODULE "Check submodules during build" ON)
     if(GIT_SUBMODULE)
-        message(STATUS "Submodule update")
+        message(STATUS "Updating Git submodules")
         execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
                         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
                         RESULT_VARIABLE GIT_SUBMOD_RESULT)
@@ -22,8 +23,6 @@ endif()
 
 
 if( FIPS_CONFIG AND NOT FIPS_IMPORT )
-	cmake_minimum_required(VERSION 3.5)
-
 	get_filename_component(FIPS_ROOT_DIR "../fips" ABSOLUTE)
 	include("${FIPS_ROOT_DIR}/cmake/fips.cmake")
 
@@ -78,10 +77,12 @@ if (FIPS_CONFIG)
 	endif()
 
 else()
+    # catkin / ROS build path
+
     project(gpmf)
 
     find_package(catkin REQUIRED COMPONENTS)
-     
+
     catkin_package(
         LIBRARIES gpmf_LIB
         INCLUDE_DIRS thirdparty
@@ -95,7 +96,7 @@ else()
 
     file(GLOB gpmf_SRCS
      	  thirdparty/gpmf-write/*.c
-          thirdparty/gpmf-parser/*.c
+        thirdparty/gpmf-parser/*.c
     )
 
     add_library(gpmf_LIB ${gpmf_SRCS})
@@ -109,7 +110,7 @@ else()
 
     ## Install headers
     install(DIRECTORY thirdparty/
-        DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+        DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
         FILES_MATCHING PATTERN "*.hpp" PATTERN "*.h"
         PATTERN ".git" EXCLUDE)
 endif()
