@@ -1,0 +1,28 @@
+kind: pipeline
+type: docker
+name: build
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: build-fips
+  image: amarburg/lsdslam-dev-host
+  commands:
+    - ./fips build
+
+- name: build-ros-melodic
+  image: amarburg/drone-ci-melodic-ros-base
+  commands:
+    - wget -O- https://gitlab.com/amarburg/ros_drone_ci/-/raw/master/bootstrap.sh | /bin/bash
+
+- name: trigger-github-downstream
+  image: plugins/downstream
+  settings:
+    server: https://github.drone.camhd.science
+    fork: true
+    token:
+      from_secret: github_drone_token
+    repositories:
+      - apl-ocean-engineering/liboculus
