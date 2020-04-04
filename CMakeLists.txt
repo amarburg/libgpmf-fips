@@ -38,11 +38,11 @@ endif()
 set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 if (FIPS_CONFIG)
-
+  # == fip section ==================================================
 	fips_begin_module( gpmf )
-		fips_src( thirdparty/gpmf-write/)
-		fips_src( thirdparty/gpmf-parser/)
 
+		fips_src( thirdparty/gpmf-write/ NO_RECURSE )
+		fips_src( thirdparty/gpmf-parser/ NO_RECURSE )
 
 	  fips_include_directories(
 			${CMAKE_SOURCE_DIR}/thirdparty
@@ -77,7 +77,7 @@ if (FIPS_CONFIG)
 	endif()
 
 else()
-    # catkin / ROS build path
+    # == catkin / ROS section =======================================
 
     project(gpmf)
 
