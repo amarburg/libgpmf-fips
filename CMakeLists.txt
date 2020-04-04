@@ -52,15 +52,15 @@ if (FIPS_CONFIG)
 
 	if( NOT FIPS_IMPORT )
 
-		fips_begin_app( parser-demo cmdline )
-		  fips_src( thirdparty/gpmf-parser/demo/ )
-		  fips_deps( gpmf )
-		fips_end_app()
+		#fips_begin_app( parser-demo cmdline )
+		#  fips_src( thirdparty/gpmf-parser/demo/ )
+		#  fips_deps( gpmf )
+		#fips_end_app()
 
-		fips_begin_app( writer-demo cmdline )
-		  fips_src( thirdparty/gpmf-write/demo/ )
-		  fips_deps( gpmf )
-		fips_end_app()
+		#fips_begin_app( writer-demo cmdline )
+		#  fips_src( thirdparty/gpmf-write/demo/ )
+		#  fips_deps( gpmf )
+		#fips_end_app()
 
 		# Tools not quite ready yet...
 	  add_subdirectory("tools/")
