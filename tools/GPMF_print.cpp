@@ -413,14 +413,14 @@ void PrintGPMF(GPMF_stream *ms)
 	// }
 
 	char keyStr[5];
-	snprintf(keyStr, 4, "%c%c%c%c", (key >> 0) & 0xff, (key >> 8) & 0xff, (key >> 16) & 0xff, (key >> 24) & 0xff);
+	snprintf(keyStr, 5, "%c%c%c%c", (key >> 0) & 0xff, (key >> 8) & 0xff, (key >> 16) & 0xff, (key >> 24) & 0xff);
 
 	if (type == 0) {
-		LOGF(INFO, "%s%s nest size %d ", spacer, keyStr, size);
+		LOGF(INFO, "%s%4s nest size %d ", spacer, keyStr, size);
 	} else if (structsize == 1 || (repeat == 1 && type != '?')) {
-		LOGF(INFO, "%s%s type '%c' size %d (%d samples at %d bytes) ", spacer, keyStr, type == 0 ? '0' : type, size, repeat, structsize );
+		LOGF(INFO, "%s%4s type '%c' size %d (%d samples at %d bytes) ", spacer, keyStr, type == 0 ? '0' : type, size, repeat, structsize );
 	} else {
-		LOGF(INFO, "%s%s type '%c' samplesize %d repeat %d ", spacer, keyStr, type == 0 ? '0' : type, structsize, repeat);
+		LOGF(INFO, "%s%4s type '%c' samplesize %d repeat %d ", spacer, keyStr, type == 0 ? '0' : type, structsize, repeat);
 	}
 
 	if (type && repeat > 0)

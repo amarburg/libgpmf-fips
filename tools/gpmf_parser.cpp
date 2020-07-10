@@ -21,18 +21,19 @@ int main(int argc, char *argv[]) {
   CLI::App app{"Simple GPMF Parser"};
 
   int verbosity = 0;
-  app.add_flag("-v", verbosity, "Additional output (use -vv for even more!)");
+  app.add_flag("-v", verbosity, "Set logging level to DEBUG");
 
   string inputFilename("");
   app.add_option("input", inputFilename, "Filename to read sonar data from.");
 
   CLI11_PARSE(app, argc, argv);
 
-  if( verbosity == 1 ) {
-    logger.stderrHandle->call( &ColorStderrSink::setThreshold, INFO );
-  } else if (verbosity > 1 ) {
+  if( verbosity > 0 ) {
     logger.stderrHandle->call( &ColorStderrSink::setThreshold, DEBUG );
   }
+  // } else if (verbosity > 1 ) {
+  //   logger.stderrHandle->call( &ColorStderrSink::setThreshold, DEBUG );
+  // }
 
   // Open to the end to read the file length
   ifstream input( inputFilename, std::ios::binary  | std::ios::ate );
